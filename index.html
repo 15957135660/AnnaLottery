@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width:device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0" />
+    <link rel="stylesheet" href="css/css.css"/>
+    <script src="js/fontAuto.js"></script>
+    <title></title>
+</head>
+<body>
+<div id="reel">
+    <span class="pan"></span>
+    <span class="needle"></span>
+</div>
+<div id="start">
+    <input type="button" value="开始抽奖"/>
+</div>
+<dl id="rule">
+    <dt>暗号抽奖规则</dt>
+    <dd>1、每天10点在微信服务号“利趣返利网”或用户QQ群中公布当日抽奖暗号（节假日除外）</dd>
+    <dd>2、用户获得暗号后，可选择在微信服务号完成抽奖，或在PC端Q群抽奖中完成抽奖</dd>
+    <dd>3、每个用户凭暗号只获得1次抽奖机会</dd>
+    <dd>4、抽奖获得的集分宝将随着你的下次返利到账而发放</dd>
+    <dd>5、具体抽奖信息请至PC端我的利趣中查看抽奖明细</dd>
+</dl>
+<script src="js/zepto.min.js"></script>
+<script src="js/zepto-touch.js"></script>
+<script>
+    /*
+     0:再接再厉,
+     40:集分宝,
+     80:精美礼品，
+     125:集分宝,
+     175:再来一次,
+     220:10元,
+     265:祝你好运,
+     310:50元
+     */
+    /*
+     * 结果返回意义
+     0:再接再厉,再来一次,祝你好运;
+     1:集分宝;
+     2:精美礼品;
+     3:10元;
+     4:50元
+     */
+    var storageJson={
+        '0':'再接再厉',
+        '40':'集分宝',
+        '80':'精美礼品',
+        '125':'集分宝',
+        '175':'再来一次',
+        '220':'10元',
+        '265':'祝你好运',
+        '310':'50元'
+    }
+    if(window.localStorage)
+    {
+        if(localStorage.resultDeg){//表示已经抽过奖了
+            var resultMessage=storageJson[localStorage.resultDeg];
+            alert("您已经抽过奖了！\n您的奖品是"+resultMessage);
+        }
+    }
+    $("#start,.needle").tap(function(){
+        if(window.localStorage)
+        {
+            if(localStorage.resultDeg){//表示已经抽过奖了
+                var resultMessage=storageJson[localStorage.resultDeg];
+                alert("您已经抽过奖了！\n您的奖品是"+resultMessage);
+                return;
+            }
+        }
+        $.ajax({
+            type:'get',
+            url:'json/json.json',
+            success:function(json) {
+                if(json.message=='success'){
+                    var deVal=360*2;
+                    if(json.result==0)
+                    {
+                        var arr=[0,175,265];
+                        var randomVal=Math.floor(Math.random()*3);
+                        var resultDeg=arr[randomVal];
+                        deVal+=arr[randomVal];
+                    }
+                    else if(json.result==1){
+                        var arr=[40,125];
+                        var randomVal=Math.floor(Math.random()*2);
+                        var resultDeg=arr[randomVal];
+                        deVal+=arr[randomVal];
+                    }
+                    else if(json.result==2){
+                        var resultDeg=80;
+                        deVal+=80;
+                    }
+                    else if(json.result==3){
+                        var resultDeg=220;
+                        deVal+=220;
+                    }
+                    else if(json.result==4){
+                        var resultDeg=310;
+                        deVal+=310;
+                    }
+
+                    //console.log(deVal);
+                    /*							$('.pan-main').css({
+                     transform:"rotate("+deVal+"deg)",
+                     WebkitTransform:"rotate("+deVal+"deg)",
+                     MozTransform:"rotate("+deVal+"deg)",
+                     OTransform:"rotate("+deVal+"deg)",
+                     MsTransform:"rotate("+deVal+"deg)"
+                     });*///有坑
+                    var panMainNode=document.querySelector(".pan");
+                    panMainNode.style.transform="rotate("+deVal+"deg)";
+                    panMainNode.style.WebkitTransform="rotate("+deVal+"deg)";
+                    panMainNode.style.MozTransform="rotate("+deVal+"deg)";
+                    panMainNode.style.OTransform="rotate("+deVal+"deg)";
+                    panMainNode.style.MsTransform="rotate("+deVal+"deg)";
+                    if(window.localStorage){
+                        localStorage.resultDeg=resultDeg;
+                    }
+                }
+                else{
+                    alert('系统忙,请稍后！')
+                }
+            },
+            error:function(a,b,c){
+                alert('系统忙,请稍后！')
+            }
+        })
+    })
+</script>
+</body>
+</html>
