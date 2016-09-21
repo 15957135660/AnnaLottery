@@ -1,0 +1,31 @@
+/* CSS 初始化 */
+body,div,p,h1,h2,h3,h4,ul,ol,li,dl,dt,dd,ol,form,table,tr,td,span,label,input,select,option,a,img,i,em,strong,b{ margin:0; padding:0;}
+li{ list-style:none;}
+img{ border:0 none; vertical-align:top;}
+a{ text-decoration:none; }
+input{ border:0 none;}
+.clearfix{ *zoom:1;}
+.clearfix:after { content:"."; clear:both; height:0; visibility:hidden; display:block;}
+html{ font-size:6.25rem;}
+body{ font-family:"微软雅黑"; max-width:640px; min-width:320px; margin:0 auto; font-size:0.24rem; background:#dca6a6;}
+/*主体*/
+#reel{ width:6.4rem; height:6.83rem; background: url('../images/bg.jpg'); background-size: 6.4rem 6.83rem;
+    position: relative;}
+#reel .pan{ display: block; width: 5.3rem; height: 5.25rem; position: absolute; background: url("../images/pan.png") no-repeat; right: 0.55rem; bottom:0.28rem; background-size: 100% 100%;
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+    transition: all 2s;
+    -webkit-transition: all 2s;
+    -moz-transition: all 2s;
+    -o-transition: all 2s;
+    -ms-transition: all 2s;}
+#reel .needle{ display: block; width: 1.3rem; height: 1.3rem;background: url("../images/needle.png") no-repeat;
+    background-size: 100% 100%; position: absolute; right: 2.55rem; bottom: 2.34rem;}
+#start{ width:6.4rem; height: 0.9rem; background: #e4d6f4;}
+#start input{ display: block; width: 5.8rem; height: 100%; line-height:0.9rem; margin:0 auto; border-radius: 4px; background:#ffb417; color:#121212; font-size: 0.36rem; text-align: center; font-weight: 600; }
+#rule{ width:5.66rem; height: auto; padding:0.35rem 0.44rem 1rem 0.3rem; background:#e4d6f4; }
+#rule dt{ color:#333;height:0.32rem; line-height: 0.32rem; margin-bottom: 0.12rem;}
+#rule dd{ color:#666; hieght:0.36; line-height: 0.36rem;}
